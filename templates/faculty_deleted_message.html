@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Reset some default styles for HTML elements */
+        html, body, h1, h2, p, table {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Apply some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #5c5b5b;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .course-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .course-table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .course-table th, .course-table td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .course-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* Style for course table */
+        .course-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .course-table tbody tr:hover {
+            background-color: #ddd;
+            cursor: pointer;
+        }
+
+        .delete-button {
+            background-color: rgb(206, 6, 6);
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            width: 90%;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button:hover {
+            background-color: rgb(104, 2, 2);
+            scale: 1.03;
+        }
+
+        .error_message {
+            margin-top: 10em;
+            font-size: 1em;
+            color: red;
+        }
+
+        .success_message {
+            margin-top: 10em;
+            font-size: 1em;
+            color: green;
+        }
+
+        .back-button {
+            background-color: rgb(48, 65, 50);
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            width: 10%;
+            margin: 5px;
+            margin-top: 2em;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: rgb(24, 20, 20);
+            scale: 1.03;
+        }
+    </style>
+    <title>Faculty List</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    {% if status == 'Success' %}
+    <p class="success_message">{{ message }}</p>
+    {% else %}
+    <p class="error_message">{{ message }}</p>
+    {% endif %}
+    <a href='/faculty_list'><button class="back-button">Back</button></a>
+</body>
+</html>

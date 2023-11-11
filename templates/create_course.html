@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Course</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .external-container {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 3em auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 96.25%;
+            height: 1.4em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error_message {
+            font-size: 1em;
+            color: red;
+        }
+
+        .success_message {
+            font-size: 1em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="external-container">
+        <div class="container">
+            <h1>Add Course</h1>
+
+            {% if message %}
+                {% if message == 'Course Created Successfully' %}
+                    <div class = "success_message"><p>{{ message }}</p></div>
+                {% else %}
+                    <div class = "error_message"><p>{{ message }}</p></div>
+                {% endif %}
+            {% endif %}
+
+            <form method="post">
+                <label for="option">Select Department:</label>
+                <select id="option" name="option">
+                    {% for department in departments_data %}
+                        {% if department == department_string %}
+                            <option value="{{department}}" selected>{{department}}</option>
+                        {% else %}
+                            <option value="{{department}}">{{department}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                {% if not department_string %}
+                    <button type="submit">Confirm</button>
+                {% else %}
+                    <button type="submit">Update</button>
+                {% endif %}
+            </form>
+    
+            {% if department_string %}
+            <form method="post">
+                <label style="margin-top: 1.5em;">Enter Course ID:</label>
+                <input type="text" id="course_id" name="course_id" pattern="[A-Za-z0-9]{7}" placeholder="Example: CS2040D" required>
+                <label>Enter Course Name:</label>
+                <input type="text" id="course_name" name="course_name" required>
+                <label for="sub_option">Select Faculty:</label>
+                <select id="sub_option" name="sub_option">
+                    {% for faculty in departments_data[department_string] %}
+                    <option value="{{ faculty[0] }}">{{ faculty[1] }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Confirm</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

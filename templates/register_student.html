@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="text"]:not([disabled]):invalid,
+        input[type="password"]:not([disabled]):invalid,
+        input[type="email"]:not([disabled]):invalid {
+            border: 1px solid #f00;
+        }
+        .submit-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .error_message {
+            font-size: 0.8em;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <p>Are you a professor? <a href="{{ url_for('register_faculty') }}">Faculty Register</a></p>
+        <h2>Student Signup</h2>
+        {% if error %}
+            <div class = "error_message"><p>{{ error }}</p></div>
+        {% endif %}
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="id">ID:</label>
+                <input type="text" id="id" name="id" pattern="[A-Za-z0-9]{9}" placeholder="Example: M210500CA" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" name="first-name" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" name="last-name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="contact-number">Contact Number:</label>
+                <input type="tel" id="contact-number" name="contact-number" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+                <label for="batch">Batch:</label>
+                <input type="number" id="batch" name="batch" min="2000" max="2023" step="1" placeholder="YYYY" value="2023" required>
+            </div>
+            <div class="form-group">
+                <label for="department-id">Department:</label>
+                <select id="department-id" name="department-id" required>
+                    <option value="">Select Department</option>
+                    {% for department in department_list %}
+                        <option value="{{ department[0] }}">{{ department[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="submit-button">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

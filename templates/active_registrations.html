@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body, h1, h2, p, table {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Apply some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #5c5b5b;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .table-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .data-table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .data-table caption {
+            font-weight: bold;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .data-table th, .data-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .data-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .data-table tbody tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Style for buttons */
+        .accept-button {
+            background-color: green;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            width: 75%;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .accept-button:hover {
+            background-color: rgb(0, 44, 0);
+            scale: 1.03;
+        }
+
+        .reject-button {
+            background-color: rgb(206, 6, 6);
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            width: 75%;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .reject-button:hover {
+            background-color: rgb(104, 2, 2);
+            scale: 1.03;
+        }
+    </style>
+    <title>Registration Table</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <header>
+        <h1>Registration Table</h1>
+    </header>
+    <section class="table-section">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Student Roll</th>
+                    <th>Student Name</th>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>Faculty Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registration in registrations %}
+                <tr>
+                    <td>{{ registration[0].upper() }}</td>
+                    <td>{{ registration[1] }}</td>
+                    <td>{{ registration[2] }}</td>
+                    <td>{{ registration[3] }}</td>
+                    <td>{{ registration[4] }}</td>
+                    <td>
+                        <form action="/accept_registration" method="POST">
+                            <input type="hidden" name="student_id" value="{{ registration[0] }}">
+                            <input type="hidden" name="course_id" value="{{ registration[2] }}">
+                            <button class="accept-button" type="submit">Accept</button>
+                        </form>
+                        <form action="/reject_registration" method="POST">
+                            <input type="hidden" name="student_id" value="{{ registration[0] }}">
+                            <input type="hidden" name="course_id" value="{{ registration[2] }}">
+                            <button class="reject-button" type="submit">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

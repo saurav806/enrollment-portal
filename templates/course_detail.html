@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Reset some default styles for HTML elements */
+        html, body, h1, h2, p, table {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Apply some basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #5c5b5b;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .course-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .course-details, .students {
+            margin-top: 1.5em;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .students {
+            margin-top: 2em;
+        }
+
+        .course-details {
+            width: 50%;
+        }
+
+        .course-details h2, .students h2 {
+            margin-bottom: 10px;
+            color: #007bff;
+        }
+
+        .course-table, .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .course-table th, .course-table td, .student-table th, .student-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .course-table th, .student-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        /* Style for student table */
+        .student-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .student-table tbody tr:hover {
+            background-color: #ddd;
+        }
+
+    </style>
+    <title>Course Details</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <header>
+        <h1>Course Details</h1>
+    </header>
+    <section class="course-section">
+        <div class="course-details">
+            <h2>{{ data['course_name'] }}</h2>
+            <table class="course-table">
+                <tr>
+                    <th>Course ID:</th>
+                    <td>{{ data['course_id'].upper() }}</td>
+                </tr>
+                <tr>
+                    <th>Faculty Name:</th>
+                    <td>{{ data['faculty_name'] }}</td>
+                </tr>
+                <tr>
+                    <th>Faculty ID:</th>
+                    <td>{{ data['faculty_id'].upper() }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="students">
+            <h2>Registered Students</h2>
+            <table class="student-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Batch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data['student_list'] %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                        </tr>    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>
